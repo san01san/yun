@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Important Question</title>
+
+<style>
+body {
+    margin:0;
+    font-family:sans-serif;
+    text-align:center;
+    overflow:hidden;
+    color:white;
+
+    background: linear-gradient(-45deg, #ff6ec4, #7873f5, #42e695, #ffb347);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+#question {
+    font-size:22px;
+    margin-top:80px;
+    padding:10px;
+}
+
+#reaction {
+    margin-top:10px;
+    font-size:16px;
+    opacity:0.8;
+}
+
+/* buttons */
+button {
+    padding:15px 25px;
+    font-size:18px;
+    margin:10px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+#yes {
+    background:lime;
+    position:fixed;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%) scale(1);
+}
+
+#no {
+    background:red;
+    position:absolute;
+}
+
+/* shake effect */
+.shake {
+    animation: shake 0.2s;
+}
+
+@keyframes shake {
+    0% {transform: translate(2px,2px);}
+    50% {transform: translate(-2px,-2px);}
+    100% {transform: translate(2px,-2px);}
+}
+</style>
+</head>
+
+<body>
+
+<h2 id="question">Crush mo ba ako? 😏</h2>
+<div id="reaction">Sagutin mo nang maayos 😌</div>
+
+<button id="no" onmouseover="moveNo()">NO</button>
+<button id="yes" onclick="yesClick()">YES</button>
+
+<script>
+let questions = [
+"Crush mo ba ako? 😏",
+"Aamin ka na ba? 😭",
+"Type mo ako no? 🤭",
+"Libre mo ako pagkain? 😋",
+"Papautang ka ba? 💸",
+"Magpapakopya ka sa exam? 📚",
+"Treat mo ako milktea? 🧋",
+"Ako pinakamaganda/gwapo? 😌",
+"Di ka na maglalaro, mag-aaral ka na? 😈",
+"Magiging sugar daddy/mommy ka? 🤡",
+"Maglalaba ka para sakin? 🧺",
+"Maghuhugas ka ng pinggan ko? 🍽️",
+"Magpapaload ka ba? 📱",
+"Magbibigay ka ng pera? 💰",
+"Mag-aalaga ka ng aso ko? 🐶",
+"Magiging alipin kita okay lang? 😭",
+"Magiging driver kita? 🚗",
+"Magiging taga bili ng pagkain ko? 🍔",
+"Magiging personal assistant kita? 😂",
+"Magiging ATM kita? 🤡"
+];
+
+let reactions = [
+"Grabe ka na 😭",
+"Click ka pa 😈",
+"Di ka pa tapos 😏",
+"System: 'Pagod na siya' 🤣",
+"Wag ka susuko 💪",
+"HAHAHAHA kawawa 😭",
+"Ang sipag mo mag YES ah 🤡",
+"Uy nahuhuli ka na 😂",
+"Di pa yan sapat 😜",
+"Try mo pa 🤭"
+];
+
+let qIndex = 0;
+let yesSize = 1;
+
+function moveNo(){
+    let noBtn = document.getElementById("no");
+    noBtn.style.left = Math.random()*80 + "%";
+    noBtn.style.top = Math.random()*60 + "%";
+}
+
+function yesClick(){
+    let question = document.getElementById("question");
+    let reaction = document.getElementById("reaction");
+    let yesBtn = document.getElementById("yes");
+
+    qIndex++;
+
+    if(qIndex >= questions.length){
+        qIndex = 0; // infinite loop 😈
+    }
+
+    question.innerText = questions[qIndex];
+    reaction.innerText = reactions[Math.floor(Math.random()*reactions.length)];
+
+    // lumalaki YES (limit lang)
+    if(yesSize < 3){
+        yesSize += 0.2;
+    }
+
+    yesBtn.style.transform = "translateX(-50%) scale(" + yesSize + ")";
+
+    // shake screen 😭
+    document.body.classList.add("shake");
+    setTimeout(()=>{
+        document.body.classList.remove("shake");
+    },200);
+
+    moveNo();
+}
+</script>
+
+</body>
+</html>
